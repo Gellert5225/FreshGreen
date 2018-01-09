@@ -14,6 +14,7 @@ var indexRoute = require('./routes/indexRoute');
 var shopRoute = require('./routes/shop');
 var pushRoute = require('./routes/push');
 
+var server_url = process.env.SERVER_URL || 'http://localhost:5050/parse';
 // var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 // if (!databaseUri) {
@@ -26,7 +27,7 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js', // 云计算
   appId: process.env.APP_ID || 'freshgreen', // 应用ID，不是饿了么的ID
   masterKey: process.env.MASTER_KEY || 'freshgreen_secret', // 这个要保密
-  serverURL: process.env.SERVER_URL || 'http://localhost:5050/parse',  // 服务器链接
+  serverURL: server_url,  // 服务器链接
   liveQuery: {
     classNames: ["Posts", "Comments"] // 实时获取信息，暂时不需要
   }
@@ -40,7 +41,7 @@ var app = express();
 
 // 一些宏量
 app.use(function(req, res, next) {
-  res.locals.domain = 'http://localhost:5050';
+  res.locals.domain = server_url;
   next();
 });
 
