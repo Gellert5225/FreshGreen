@@ -22,12 +22,12 @@ router.post('/push', function(req, res) {
   order.save(null, {
     success: function(order) {
       // Execute any logic that should take place after the object is saved.
-      alert('New order created with objectId: ' + order.id);
+      console.log('New order created with objectId: ' + order.id);
     },
     error: function(order, error) {
       // Execute any logic that should take place if the save fails.
       // error is a Parse.Error with an error code and message.
-      alert('Failed to create new order, with error code: ' + error.message);
+      console.log('Failed to create new order, with error code: ' + error.message);
     }
   });
 });
