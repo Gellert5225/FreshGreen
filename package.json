@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "ejs": "^2.5.7",
     "eleme-openapi-sdk": "^1.7.1",
     "express": "~4.11.x",
