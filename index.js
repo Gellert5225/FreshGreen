@@ -45,6 +45,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+
 // 使用我们的REST Routes
 app.use(indexRoute);
 app.use(shopRoute);
