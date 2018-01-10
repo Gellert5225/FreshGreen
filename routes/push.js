@@ -22,8 +22,9 @@ router.post('/push', function(req, res) {
     order.set('orderId', message.orderId);
     order.set('deliveryAddress', message.address);
     order.set('type', req.body.type);
-    order.set('description', message.description);
+    order.set('description', (message.description == '') ? message.description : '无备注');
     order.set('detail', getOrderDetail(message));
+    order.set('recipient', message.consignee);
     order.set('orderObject', message);
     order.save(null, {
       success: function(order) {
@@ -52,10 +53,6 @@ router.post('/push', function(req, res) {
     });
   }
   
-});
-
-router.get('/kitchen', function(req, res) {
-  res.render('kitchen');
 });
 
 function getOrderDetail(message) {

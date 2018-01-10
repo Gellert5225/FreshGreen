@@ -15,6 +15,7 @@
     "express": "~4.11.x",
     "kerberos": "~0.0.x",
     "method-override": "^2.3.10",
+    "nodemon": "^1.14.10",
     "parse": "~1.8.0",
     "parse-server": "*"
   },

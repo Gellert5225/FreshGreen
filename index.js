@@ -15,11 +15,6 @@ var shopRoute = require('./routes/shop');
 var pushRoute = require('./routes/push');
 
 var server_url = process.env.SERVER_URL || 'http://localhost:5050/parse';
-// var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
-
-// if (!databaseUri) {
-//   console.log('DATABASE_URI not specified, falling back to localhost.');
-// }
 
 // 新建一个Parse服务器
 var api = new ParseServer({
@@ -32,9 +27,6 @@ var api = new ParseServer({
     classNames: ["Posts", "Comments"] // 实时获取信息，暂时不需要
   }
 });
-// Client-keys like the javascript key or the .NET key are not necessary with parse-server
-// If you wish you require them, you can set them as options in the initialization above:
-// javascriptKey, restAPIKey, dotNetKey, clientKey
 
 // 新建express app
 var app = express();
