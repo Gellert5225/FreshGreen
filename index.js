@@ -41,7 +41,7 @@ var app = express();
 
 // 一些宏量
 app.use(function(req, res, next) {
-  res.locals.domain = server_url;
+  res.locals.domain = 'https://fgpush.herokuapp.com';
   next();
 });
 

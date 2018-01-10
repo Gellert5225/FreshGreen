@@ -19,6 +19,7 @@ router.post('/push', function(req, res) {
   var order = new Order();
   order.set('orderId', message.orderId);
   order.set('deliveryAddress', message.address);
+  order.set('type', req.body.type);
   order.save(null, {
     success: function(order) {
       // Execute any logic that should take place after the object is saved.
