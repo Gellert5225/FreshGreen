@@ -34,7 +34,7 @@ router.post('/push', function(req, res) {
     query.equalTo('orderId', message.orderId);
     query.find({
       success: function(results) {
-        console.log('Successfully retrieved ' + results.length + '' orders.'');
+        console.log('Successfully retrieved ' + results.length + ' orders.');
         for (var i = 0; i < results.length; i++) {
           var order = results[i];
           order.set('type', req.body.type);
