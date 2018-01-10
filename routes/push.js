@@ -14,13 +14,26 @@ router.post('/push', function(req, res) {
   var message = JSON.parse(req.body.message);
   console.log('ORDER ID: ' + message.orderId);
 
+  var numberOfCarts = message.groups.length;
   // 根据不同的推送类型，来储存不同的数据
   if (req.body.type == 10) { // 订单生效，创建新的订单对象
     var Order = Parse.Object.extend('Order');
     var order = new Order();
+    var orderDetail = '';
+    for (let i = 0; i < numberOfCarts; i++) {
+      orderDetail += i+1 + '号篮子：';
+
+      var numberOfItems = message.groups[i].items.length;
+      for (let j = 0; j < numberOfItems; j++) {
+        orderDetail += (message.groups[i].items[j].name + (j+1 == numberOfItems ? '。' : '，'));
+      }
+    }
+
     order.set('orderId', message.orderId);
     order.set('deliveryAddress', message.address);
     order.set('type', req.body.type);
+    order.set('description', message.description);
+    order.set('detail', orderDetail);
     order.save(null, {
       success: function(order) {
         console.log('New order created with objectId: ' + order.id);
