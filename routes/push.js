@@ -14,23 +14,39 @@ router.post('/push', function(req, res) {
   var message = JSON.parse(req.body.message);
   console.log('ORDER ID: ' + message.orderId);
 
-  //创建新的订单对象
-  var Order = Parse.Object.extend("Order");
-  var order = new Order();
-  order.set('orderId', message.orderId);
-  order.set('deliveryAddress', message.address);
-  order.set('type', req.body.type);
-  order.save(null, {
-    success: function(order) {
-      // Execute any logic that should take place after the object is saved.
-      console.log('New order created with objectId: ' + order.id);
-    },
-    error: function(order, error) {
-      // Execute any logic that should take place if the save fails.
-      // error is a Parse.Error with an error code and message.
-      console.log('Failed to create new order, with error code: ' + error.message);
-    }
-  });
+  if (req.body.type == 10) { //创建新的订单对象
+    var Order = Parse.Object.extend('Order');
+    var order = new Order();
+    order.set('orderId', message.orderId);
+    order.set('deliveryAddress', message.address);
+    order.set('type', req.body.type);
+    order.save(null, {
+      success: function(order) {
+        console.log('New order created with objectId: ' + order.id);
+      },
+      error: function(order, error) {
+        console.log('Failed to create new order, with error code: ' + error.message);
+      }
+    });
+  } else if (req.body.type == 14) { // 取消订单
+    var Order = Parse.Object.extend('Order');
+    var query = new Parse.Query(Order);
+    query.equalTo('orderId', message.orderId);
+    query.find({
+      success: function(results) {
+        console.log('Successfully retrieved ' + results.length + '' orders.'');
+        for (var i = 0; i < results.length; i++) {
+          var order = results[i];
+          order.set('type', req.body.type);
+          gameScore.save();
+        }
+      },
+      error: function(error) {
+        console.log('Error: ' + error.code + ' ' + error.message);
+      }
+    });
+  }
+  
 });
 
 router.get('/kitchen', function(req, res) {
