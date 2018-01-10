@@ -14,7 +14,8 @@ router.post('/push', function(req, res) {
   var message = JSON.parse(req.body.message);
   console.log('ORDER ID: ' + message.orderId);
 
-  if (req.body.type == 10) { //创建新的订单对象
+  // 根据不同的推送类型，来储存不同的数据
+  if (req.body.type == 10) { // 订单生效，创建新的订单对象
     var Order = Parse.Object.extend('Order');
     var order = new Order();
     order.set('orderId', message.orderId);
@@ -38,7 +39,7 @@ router.post('/push', function(req, res) {
         for (var i = 0; i < results.length; i++) {
           var order = results[i];
           order.set('type', req.body.type);
-          gameScore.save();
+          order.save();
         }
       },
       error: function(error) {
