@@ -77,6 +77,7 @@ function saveItems(message, order) {
   console.log(numberOfCarts);
   for (let i = 0; i < numberOfCarts.length; i++) {
     var numberOfItems = message.groups[i].items.length;
+    console.log(numberOfItems);
     for (let j = 0; j < numberOfItems.length; j++) {
       var itemObject = message.groups[i].items[j];
       console.log('Saving item');
