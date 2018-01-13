@@ -16,22 +16,32 @@ router.post('/push', function(req, res) {
   // 根据不同的推送类型，来储存不同的数据
   if (req.body.type == 10) { // 订单生效，创建新的订单对象
     var Order = Parse.Object.extend('Order');
-    var order = new Order();
-
-    order.set('orderId', message.orderId);
-    order.set('deliveryAddress', message.address);
-    order.set('type', req.body.type);
-    order.set('description', (message.description == '') ? '无备注' : message.description);
-    order.set('detail', getOrderDetail(message));
-    order.set('recipient', message.consignee);
-    order.set('orderObject', message);
-    order.save(null, {
-      success: function(order) {
-        console.log('New order created with objectId: ' + order.id); 
-        saveItems(message, order);
+    var query = new Parse.Query(Order);
+    query.equalTo('orderId', message.orderId);
+    query.find({ // 如果订单不存在，那么创建新的订单
+      success: function(results) {
+        if (results.length == 0){
+          var order = new Order();
+          order.set('orderId', message.orderId);
+          order.set('deliveryAddress', message.address);
+          order.set('type', req.body.type);
+          order.set('description', (message.description == '') ? '无备注' : message.description);
+          order.set('detail', getOrderDetail(message));
+          order.set('recipient', message.consignee);
+          order.set('orderObject', message);
+          order.save(null, {
+            success: function(order) {
+              console.log('New order created with objectId: ' + order.id); 
+              saveItems(message, order);
+            },
+            error: function(order, error) {
+              console.log('Failed to create new order, with error code: ' + error.message);
+            }
+          });
+        }
       },
-      error: function(order, error) {
-        console.log('Failed to create new order, with error code: ' + error.message);
+      error: function(o, error) {
+        console.log('Failed to find order, with error code: ' + error.message);
       }
     });
   } else if (req.body.type == 14) { // 取消订单
@@ -55,6 +65,8 @@ router.post('/push', function(req, res) {
   
 });
 
+/// Helper functions
+
 function getOrderDetail(message) {
   var numberOfCarts = message.groups.length;
   var orderDetail = '';
@@ -72,15 +84,11 @@ function getOrderDetail(message) {
 }
 
 function saveItems(message, order) {
-  console.log('function called');
   var numberOfCarts = message.groups.length;
-  console.log(numberOfCarts);
   for (let i = 0; i < numberOfCarts; i++) {
     var numberOfItems = message.groups[i].items.length;
-    console.log(numberOfItems);
     for (let j = 0; j < numberOfItems; j++) {
       var itemObject = message.groups[i].items[j];
-      console.log('Saving item');
       var Item = Parse.Object.extend('Item');
       var item = new Item();
 
