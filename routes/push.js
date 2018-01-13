@@ -12,7 +12,6 @@ router.post('/push', function(req, res) {
   res.status(200).send('{"message":"ok"}');
 
   var message = JSON.parse(req.body.message);
-  console.log('ORDER ID: ' + message.orderId);
 
   // 根据不同的推送类型，来储存不同的数据
   if (req.body.type == 10) { // 订单生效，创建新的订单对象
@@ -28,7 +27,8 @@ router.post('/push', function(req, res) {
     order.set('orderObject', message);
     order.save(null, {
       success: function(order) {
-        console.log('New order created with objectId: ' + order.id);
+        console.log('New order created with objectId: ' + order.id); 
+        saveItems(message, order);
       },
       error: function(order, error) {
         console.log('Failed to create new order, with error code: ' + error.message);
@@ -69,6 +69,26 @@ function getOrderDetail(message) {
   }
 
   return orderDetail;
+}
+
+function saveItems(message, order) {
+  var numberOfCarts = message.groups.length;
+  for (let i = 0; i < numberOfCarts.length; i++) {
+    var numberOfItems = message.groups[i].items.length;
+    for (let j = 0; j < numberOfItems.length; j++) {
+      var itemObject = message.groups[i].items[j];
+      var Item = Parse.Object.extend('Item');
+      var item = new Order();
+
+      item.set('order', order);
+      item.set('quantity', itemObject.quantity);
+      item.set('name', itemObject.name);
+      item.set('price', itemObject.price);
+      item.set('itemId', itemObject.id);
+      item.save();
+    }
+    
+  }
 }
 
 module.exports = router;

@@ -25,4 +25,15 @@ router.get('/reception', function(req, res) {
   });
 });
 
+router.get('/testAJAX', function(req, res) {
+  res.render('testAJAX')
+})
+
+router.post('/testAJAX', function(req,res) {
+  console.log(req.body);
+  var message = JSON.parse(req.body);
+  res.send(req.body.abc);
+  console.log("string sent");
+});
+
 module.exports = router;
