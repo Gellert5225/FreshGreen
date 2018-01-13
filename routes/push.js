@@ -75,10 +75,10 @@ function saveItems(message, order) {
   console.log('function called');
   var numberOfCarts = message.groups.length;
   console.log(numberOfCarts);
-  for (let i = 0; i < numberOfCarts.length; i++) {
+  for (let i = 0; i < numberOfCarts; i++) {
     var numberOfItems = message.groups[i].items.length;
     console.log(numberOfItems);
-    for (let j = 0; j < numberOfItems.length; j++) {
+    for (let j = 0; j < numberOfItems; j++) {
       var itemObject = message.groups[i].items[j];
       console.log('Saving item');
       var Item = Parse.Object.extend('Item');
