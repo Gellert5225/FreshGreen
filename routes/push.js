@@ -85,7 +85,13 @@ function saveItems(message, order) {
       item.set('name', itemObject.name);
       item.set('price', itemObject.price);
       item.set('itemId', itemObject.id);
-      item.save();
+      item.save(null, {
+        success: function(result) {
+          console.log('New item saved: ' + result.get('name'));
+        }, error: function(e) {
+          console.log('Error: ' + e.code + ' ' + e.message);
+        }
+      });
     }
     
   }
