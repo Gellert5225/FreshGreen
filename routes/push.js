@@ -88,7 +88,7 @@ function saveItems(message, order) {
       item.set('quantity', itemObject.quantity);
       item.set('name', itemObject.name);
       item.set('price', itemObject.price);
-      item.set('itemId', itemObject.id);
+      //item.set('itemId', itemObject.id);
       item.save(null, {
         success: function(result) {
           console.log('New item saved: ' + result.get('name'));
