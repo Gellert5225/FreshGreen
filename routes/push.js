@@ -77,6 +77,7 @@ function saveItems(message, order) {
     var numberOfItems = message.groups[i].items.length;
     for (let j = 0; j < numberOfItems.length; j++) {
       var itemObject = message.groups[i].items[j];
+      console.log('Saving item');
       var Item = Parse.Object.extend('Item');
       var item = new Item();
 
