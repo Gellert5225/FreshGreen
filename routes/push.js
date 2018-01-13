@@ -72,7 +72,9 @@ function getOrderDetail(message) {
 }
 
 function saveItems(message, order) {
+  console.log('function called');
   var numberOfCarts = message.groups.length;
+  console.log(numberOfCarts);
   for (let i = 0; i < numberOfCarts.length; i++) {
     var numberOfItems = message.groups[i].items.length;
     for (let j = 0; j < numberOfItems.length; j++) {
