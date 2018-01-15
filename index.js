@@ -56,6 +56,7 @@ app.use(mountPath, api);
 // 启动服务器
 var port = process.env.PORT || 5050;
 var httpServer = require('http').createServer(app);
+global.io = require('socket.io')(httpServer);
 httpServer.listen(port, function() {
     console.log('Fresh Green running on port ' + port + '.');
 });

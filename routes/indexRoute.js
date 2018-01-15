@@ -52,18 +52,15 @@ router.get('/kitchen', function(req, res) {
   });
 });
 
-// var globalJSON;
+router.get('/testAJAX', function(req, res) {
+  res.render('testAJAX');
+})
 
-// router.get('/testAJAX', function(req, res) {
-//   res.send(globalJSON.abc);
-// })
+router.post('/testAJAX', function(req,res) {
+  console.log(req.body.abc);
+  io.sockets.emit('ORDER_STATUS_CHANGED', req.body.abc);
+  res.status(200).send('ss');
+});
 
-// router.post('/testAJAX', function(req,res) {
-//   console.log(req.body);
-//   // res.writeHead(200, {"Content-Type": "text/plain"});
-//   // res.end('qwer');
-//   console.log(req.body.abc);
-//   globalJSON = req.body;
-// });
 
 module.exports = router;
