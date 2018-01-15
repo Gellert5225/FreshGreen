@@ -12,19 +12,19 @@
 }
 
 #orderDetail {
-  padding: 10px;
+  padding: 1px;
 }
 
 #recipient {
-  padding: 10px;
+  padding: 1px;
 }
 
 #address {
-  padding: 10px;
+  padding: 1px;
 }
 
 #description {
-  padding: 10px;
+  padding: 1px;
 }
 
 div.column {
@@ -37,17 +37,18 @@ div.column {
   margin: auto;
 }
 
-@media (min-device-width: 698px) {
+/* @media (min-device-width: 698px) {
   .column {
     width: 33.3333333333%;
     height: 33.3333333333%;
     display: inline;
     float: left;
   }
-}
+} */
 
-.column {
+/* .column {
   width: 33.3333333333%;
   height: 33.3333333333%;
   margin: auto;
-}
+  float: left
+} */
