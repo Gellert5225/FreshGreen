@@ -13,7 +13,6 @@ router.post('/push', function(req, res) {
 
   var message = JSON.parse(req.body.message);
 
-  // 根据不同的推送类型，来储存不同的数据
   if (req.body.type == 10) { // 订单生效，创建新的订单对象
     var Order = Parse.Object.extend('Order');
     var query = new Parse.Query(Order);
@@ -71,12 +70,11 @@ function getOrderDetail(message) {
   var numberOfCarts = message.groups.length;
   var orderDetail = '';
   for (let i = 0; i < numberOfCarts; i++) {
-    orderDetail += i+1 + '号篮子：';
 
     var numberOfItems = message.groups[i].items.length;
     for (let j = 0; j < numberOfItems; j++) {
       item = message.groups[i].items[j];
-      orderDetail += (item.name + 'x' + item.quantity + (j+1 == numberOfItems ? '。' : '，'));
+      orderDetail += (item.name + 'x' + item.quantity + (j+1 == numberOfItems ? '' : '\n'));
     }
   }
 

@@ -62,5 +62,24 @@ router.post('/testAJAX', function(req,res) {
   res.status(200).send('ss');
 });
 
+var items = new Map();
+items.set('test1', 1);
+items.set('test2', 3);
+
+router.get('/testKit', function(req, res) {
+  res.render('kitchen', { items: items });
+});
+
+router.post('/testKit', function(req, res) {
+  items.set('test1', items.get('test1') + 1);
+  items.set('test3', 4);
+  let obj = Array.from(items).reduce((obj, [key, value]) => (
+    Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
+  ), {});
+  
+  console.log(obj);
+  io.sockets.emit('increment', obj);
+  res.status(200).send('ss');
+});
 
 module.exports = router;

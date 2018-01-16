@@ -36,18 +36,3 @@ border-width: 0.5px;
 width: 100%;
 margin: auto;
 }
-
-@media (min-device-width: 698px) {
-.column {
-  width: 33.3333333333%;
-  height: 33.3333333333%;
-  display: inline;
-  float: left;
-}
-}
-
-.column {
-width: 33.3333333333%;
-height: 33.3333333333%;
-margin: auto;
-}

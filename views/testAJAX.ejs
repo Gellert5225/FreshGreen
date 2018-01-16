@@ -9,15 +9,12 @@
   <body> 
   
   <p id = "123">hi</p>
-  <script type="text/javascript">
-      // $.get("/testAJAX", function(string) {
-      //   console.log(string)
-      // })
-      var socket = io();
 
+
+  <script type="text/javascript">
+      var socket = io();
       socket.on('ORDER_STATUS_CHANGED', function(msg){
         $('#123').text(msg);
-        socket.removeAllListeners();
       });
   </script>
   </body>

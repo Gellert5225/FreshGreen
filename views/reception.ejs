@@ -15,8 +15,7 @@
         <% var rawRoot = Math.sqrt(orders.length) %>
         <% var side = root + (Number.isInteger(rawRoot) ? 0 : 1) %>
         <% var percentage = (1 / side) * 100 %>
-        // <% console.log(percentage) %>
-        // <% console.log(Math.sqrt(orders.length)) %>
+        
         <div class="column" style = "width: <%= percentage %>%;height: <%= percentage %>%;margin: auto;float: left">
           <div id = "orderDetail">
             <p><%= orders[i].get('detail') %></p>
