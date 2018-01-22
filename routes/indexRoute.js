@@ -78,7 +78,7 @@ router.post('/testKit', function(req, res) {
   ), {});
   
   console.log(obj);
-  io.sockets.emit('increment', obj);
+  io.sockets.emit('increment', obj); // 广播
   res.status(200).send('ss');
 });
 

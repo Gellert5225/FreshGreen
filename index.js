@@ -14,7 +14,7 @@ var indexRoute = require('./routes/indexRoute');
 var shopRoute = require('./routes/shop');
 var pushRoute = require('./routes/push');
 
-const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5050';
+const SERVER_URL = process.env.SERVER_URL || 'http://120.79.174.239:5050';
 
 // 新建一个Parse服务器
 var api = new ParseServer({
@@ -56,7 +56,7 @@ app.use(mountPath, api);
 // 启动服务器
 var port = process.env.PORT || 5050;
 var httpServer = require('http').createServer(app);
-global.io = require('socket.io')(httpServer);
+global.io = require('socket.io')(httpServer); // 全局的io变量（实时更新）
 httpServer.listen(port, function() {
     console.log('Fresh Green running on port ' + port + '.');
 });

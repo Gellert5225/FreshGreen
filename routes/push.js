@@ -54,6 +54,7 @@ router.post('/push', function(req, res) {
           var order = results[i];
           order.set('type', req.body.type);
           order.save();
+          io.sockets.emit('ORDER_STATUS_CHANGED', order);
         }
       },
       error: function(error) {
